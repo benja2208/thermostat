@@ -47,26 +47,42 @@ describe("Thermostat", function() {
 
   it("should have power saving mode on by default", function(){
     expect(thermostat.powerSavingMode).toBe(true)
-  })
+  });
 
-  it("should be able to switch power saving mode", function(){
+  it("should be able to switch power saving mode from on to off", function(){
     thermostat.switchPowerSavingMode();
     expect(thermostat.powerSavingMode).toBe(false);
-  })
+  });
+
+
+  it("should be able to switch power saving mode from off to on", function(){
+    thermostat.switchPowerSavingMode();
+    thermostat.switchPowerSavingMode();
+    expect(thermostat.powerSavingMode).toBe(true);
+  });
+
+  it("should return Power Saving Mode on if it is switched on", function(){
+    expect(thermostat.switchPowerSavingMode()).toEqual("Power Saving Mode Off")
+  });
+
+    it("should return Power Saving Mode off if it is switched off", function(){
+    thermostat.powerSavingMode = false
+    expect(thermostat.switchPowerSavingMode()).toEqual("Power Saving Mode On")
+  });
 
   it("should have a maximum temperature of 25 by default", function(){
     expect(thermostat.maximumTemperature).toEqual(25);
-  })
+  });
 
   it("should have a maximum temperature of 32 if power saving mode is off", function(){
     thermostat.switchPowerSavingMode();
     expect(thermostat.maximumTemperature).toEqual(32);
-  })
+  });
 
   it("should be able to reset temperature to default", function(){
     thermostat.reset();
     expect(thermostat.temperature).toEqual(20);
-  })
+  });
 
   it("should not go above maximum temperature", function(){
     expect(function() {
