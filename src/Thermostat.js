@@ -5,6 +5,7 @@ function Thermostat() {
 	this.powerSavingMode = true;
 };
 
+
 Thermostat.prototype.increaseTemperature = function(number) {
 	number = number || 1;
 	this.temperature += number;
