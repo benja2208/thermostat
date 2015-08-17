@@ -1,18 +1,31 @@
 function Thermostat() {
 	this.temperature = 20;
-	this.minimumtemperature =10;
-}
+	this.minimumTemperature = 10;
+	this.maximumTemperature = 25;
+	this.powerSavingMode = true;
+};
 
-Thermostat.prototype.increaseTemperature = function() {
-	this.temperature += 1;
-}
+Thermostat.prototype.increaseTemperature = function(number) {
+	number = number || 1;
+	this.temperature += number;
+};
 
-Thermostat.prototype.decreaseTemperature = function() {
-	this.temperature -= 1;
-	if (this.temperature < this.minimumtemperature){
+Thermostat.prototype.decreaseTemperature = function(number) {
+	number = number || 1;
+	this.temperature -= number;
+	if (this.temperature < this.minimumTemperature){
 		throw new Error("Temperature cannot go below minimum!");
 	}
+};
+
+Thermostat.prototype.switchPowerSavingMode = function() {
+	this.powerSavingMode = true? false : true;
+};
+
+Thermostat.prototype.changeMaximumTemperature = function() {
+	return this.maximumTemperature = 25?  32 : 25;
 }
+
 // Player.prototype.play = function(song) {
 //   this.currentlyPlayingSong = song;
 //   this.isPlaying = true;

@@ -14,10 +14,20 @@ describe("Thermostat", function() {
     expect(thermostat.temperature).toEqual(21);
   });
 
+  it("should be able to increase temperature by a number", function(){
+    thermostat.increaseTemperature(5);
+    expect(thermostat.temperature).toEqual(25);
+  })
+
   it("should be able to decrease temperature", function(){
     thermostat.decreaseTemperature();
     expect(thermostat.temperature).toEqual(19);
   });
+
+  it("should be able to decrease temperature by a number", function(){
+    thermostat.decreaseTemperature(5);
+    expect(thermostat.temperature).toEqual(15);
+  })
 
   it("should be able to increase after decrease", function(){
     thermostat.decreaseTemperature();
@@ -26,17 +36,37 @@ describe("Thermostat", function() {
   });
 
   it("should have a minimum temperature of 10", function(){
-    expect(thermostat.minimumtemperature).toEqual(10);
+    expect(thermostat.minimumTemperature).toEqual(10);
   });
 
   it("should not go below the minimum temperature", function(){
-    thermostat.temperature = 10; 
     expect(function() {
-      thermostat.decreaseTemperature();
+      thermostat.decreaseTemperature(11);
       }).toThrowError("Temperature cannot go below minimum!");
   });
 
-  
+  it("should have power saving mode on by default", function(){
+    expect(thermostat.powerSavingMode).toBe(true)
+  })
+
+  it("should be able to switch power saving mode", function(){
+    thermostat.switchPowerSavingMode();
+    expect(thermostat.powerSavingMode).toBe(false);
+  })
+
+  it("should have a maximum temperature of 25 by default", function(){
+    expect(thermostat.maximumTemperature).toEqual(25);
+  })
+
+  it("should be able to change the maximum temperature to 32", function(){
+    thermostat.changeMaximumTemperature();
+    expect(thermostat.maximumTemperature).toEqual(32);
+  })
+
+  // it("should have a maximum temperature of 32 if power saving mode is off", function(){
+  //   thermostat.switchPowerSavingMode();
+  //   expect(thermostat.maximumTemperature).toEqual(32);
+  // })
 });
 
 
