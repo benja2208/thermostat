@@ -58,15 +58,22 @@ describe("Thermostat", function() {
     expect(thermostat.maximumTemperature).toEqual(25);
   })
 
-  it("should be able to change the maximum temperature to 32", function(){
-    thermostat.changeMaximumTemperature();
+  it("should have a maximum temperature of 32 if power saving mode is off", function(){
+    thermostat.switchPowerSavingMode();
     expect(thermostat.maximumTemperature).toEqual(32);
   })
 
-  // it("should have a maximum temperature of 32 if power saving mode is off", function(){
-  //   thermostat.switchPowerSavingMode();
-  //   expect(thermostat.maximumTemperature).toEqual(32);
-  // })
+  it("should be able to reset temperature to default", function(){
+    thermostat.reset();
+    expect(thermostat.temperature).toEqual(20);
+  })
+
+  it("should not go above maximum temperature", function(){
+    expect(function() {
+      thermostat.increaseTemperature(6);
+      }).toThrowError("Temperature cannot go above maximum!");
+  });
+
 });
 
 

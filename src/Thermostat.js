@@ -8,6 +8,10 @@ function Thermostat() {
 Thermostat.prototype.increaseTemperature = function(number) {
 	number = number || 1;
 	this.temperature += number;
+	if(this.temperature > this.maximumTemperature){
+		throw new Error ("Temperature cannot go above maximum!");
+	}
+	return this.temperature;
 };
 
 Thermostat.prototype.decreaseTemperature = function(number) {
@@ -16,15 +20,41 @@ Thermostat.prototype.decreaseTemperature = function(number) {
 	if (this.temperature < this.minimumTemperature){
 		throw new Error("Temperature cannot go below minimum!");
 	}
+	return this.temperature;
 };
 
 Thermostat.prototype.switchPowerSavingMode = function() {
-	this.powerSavingMode = true? false : true;
+
+	if (this.powerSavingMode) {
+		this.powerSavingMode = false;
+		this.changeMaximumTemperature();
+		return "Power Saving Mode Off";
+	}
+	else{ 
+		this.powerSavingMode = true;
+		this.changeMaximumTemperature();
+		return "Power Saving Mode On";
+	}
+
 };
 
 Thermostat.prototype.changeMaximumTemperature = function() {
-	return this.maximumTemperature = 25?  32 : 25;
-}
+	if(this.powerSavingMode){
+		return this.maximumTemperature = 25;
+	}
+	else {
+		return this.maximumTemperature = 32;
+	}
+};
+
+Thermostat.prototype.reset = function() {
+	this.temperature = 20;
+};
+
+
+
+
+
 
 // Player.prototype.play = function(song) {
 //   this.currentlyPlayingSong = song;
