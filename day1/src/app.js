@@ -25,6 +25,34 @@ $ (document).ready(function(){
 		temperatureColor();
   })
 
+  $('#increase').mouseenter(function(){
+  	$(this).animate({
+           height: '+=10px'
+       }); 
+  });
+
+  $('#increase').mouseleave(function(){
+  	$(this).animate({
+           height: '-=10px'
+       }); 
+  });
+
+//   $(document).ready(function() {
+//    $('div').mouseenter(function() {
+//        $(this).animate({
+//            height: '+=10px'
+//        });
+//    });
+//    $('div').mouseleave(function() {
+//        $(this).animate({
+//            height: '-=10px'
+//        }); 
+//    });
+//    $('div').click(function() {
+//        $(this).toggle(1000);
+//    }); 
+// });
+
   $("#decrease").click(function(){
 	  thermostat.decreaseTemperature();
 		temperature.innerHTML = thermostat.temperature;
