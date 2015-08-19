@@ -10,22 +10,20 @@ Thermostat.prototype.showtemp=function(){
 	return this.temperature
 };
 
-Thermostat.prototype.increaseTemperature = function(number) {
-	number = number || 1;
-	this.temperature += number;
-	if(this.temperature > this.maximumTemperature){
-		throw new Error ("Temperature cannot go above maximum!");
-	}
-	return this.temperature;
+Thermostat.prototype.increaseTemperature = function() {
+    if (this.temperature < this.maximumTemperature) {
+        this.temperature ++;
+      }
+    return this.temperature;
+
+
 };
 
-Thermostat.prototype.decreaseTemperature = function(number) {
-	number = number || 1;
-	this.temperature -= number;
-	if (this.temperature < this.minimumTemperature){
-		throw new Error("Temperature cannot go below minimum!");
-	}
-	return this.temperature;
+Thermostat.prototype.decreaseTemperature = function() {
+	  if (this.temperature > this.minimumTemperature) {
+      this.temperature --;
+    }
+    return this.temperature;
 };
 
 Thermostat.prototype.switchPowerSavingMode = function() {
@@ -33,12 +31,10 @@ Thermostat.prototype.switchPowerSavingMode = function() {
 	if (this.powerSavingMode) {
 		this.powerSavingMode = false;
 		this.changeMaximumTemperature();
-		return "Power Saving Mode Off";
 	}
 	else{ 
 		this.powerSavingMode = true;
 		this.changeMaximumTemperature();
-		return "Power Saving Mode On";
 	}
 
 };

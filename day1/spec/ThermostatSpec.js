@@ -14,20 +14,12 @@ describe("Thermostat", function() {
     expect(thermostat.temperature).toEqual(21);
   });
 
-  it("should be able to increase temperature by a number", function(){
-    thermostat.increaseTemperature(5);
-    expect(thermostat.temperature).toEqual(25);
-  })
 
   it("should be able to decrease temperature", function(){
     thermostat.decreaseTemperature();
     expect(thermostat.temperature).toEqual(19);
   });
 
-  it("should be able to decrease temperature by a number", function(){
-    thermostat.decreaseTemperature(5);
-    expect(thermostat.temperature).toEqual(15);
-  })
 
   it("should be able to increase after decrease", function(){
     thermostat.decreaseTemperature();
@@ -39,10 +31,9 @@ describe("Thermostat", function() {
     expect(thermostat.minimumTemperature).toEqual(10);
   });
 
-  it("should not go below the minimum temperature", function(){
-    expect(function() {
-      thermostat.decreaseTemperature(11);
-      }).toThrowError("Temperature cannot go below minimum!");
+  it('the temperature should not go below 10', function(){
+    for (i = 20; i > 10; i--) {thermostat.decreaseTemperature()};
+    expect(thermostat.decreaseTemperature()).toEqual(10);
   });
 
   it("should have power saving mode on by default", function(){
@@ -62,12 +53,14 @@ describe("Thermostat", function() {
   });
 
   it("should return Power Saving Mode on if it is switched on", function(){
-    expect(thermostat.switchPowerSavingMode()).toEqual("Power Saving Mode Off")
+    thermostat.switchPowerSavingMode()
+    expect(thermostat.powerSavingMode).toBe(false);
   });
 
     it("should return Power Saving Mode off if it is switched off", function(){
-    thermostat.powerSavingMode = false
-    expect(thermostat.switchPowerSavingMode()).toEqual("Power Saving Mode On")
+    thermostat.switchPowerSavingMode()
+    thermostat.switchPowerSavingMode()
+    expect(thermostat.powerSavingMode).toBe(true);
   });
 
   it("should have a maximum temperature of 25 by default", function(){
@@ -84,11 +77,12 @@ describe("Thermostat", function() {
     expect(thermostat.temperature).toEqual(20);
   });
 
-  it("should not go above maximum temperature", function(){
-    expect(function() {
-      thermostat.increaseTemperature(6);
-      }).toThrowError("Temperature cannot go above maximum!");
+  it('the temperture up to MaxTemperature but not beyond', function(){
+    thermostat.switchPowerSavingMode();
+    for (i = 20; i < 32; i++) {thermostat.increaseTemperature()};
+    expect(thermostat.increaseTemperature()).toEqual(32);
   });
+
 
 });
 
